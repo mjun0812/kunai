@@ -6,6 +6,9 @@ My Python Package
 
 ```bash
 pip install git+ssh://mjun@lab/home/mjun/share/Git/kunai.git
+
+# upgrade
+pip install git+ssh://mjun@lab/home/mjun/share/Git/kunai.git -U
 ```
 
 ## API
