@@ -2,6 +2,12 @@
 
 My Python Package
 
+## Install
+
+```bash
+pip install git+ssh://mjun@lab/home/mjun/share/Git/kunai.git
+```
+
 ## API
 
 ### kunai.torch
