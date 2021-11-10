@@ -1,6 +1,6 @@
 """ kunai """
 
-from Registry import Registry
+from .Registry import Registry
 
 __version__ = "1.1"
 
