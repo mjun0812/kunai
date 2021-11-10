@@ -10,6 +10,12 @@ pip install git+ssh://mjun@lab/home/mjun/share/Git/kunai.git
 
 ## API
 
+### Registory
+
+```python
+from kunai import Registry
+```
+
 ### kunai.torch
 
 required `pip install torch torchinfo`
@@ -40,6 +46,6 @@ from kunai.hydra import (
 
 ```python
 from kunai.utils import (
-    get_cmd, get_git_hash, post_slack
+    get_cmd, get_git_hash, post_slack, setup_logger
 )
 ```

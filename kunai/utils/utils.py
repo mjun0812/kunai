@@ -1,7 +1,10 @@
+import logging
 import subprocess
 import sys
 
 import requests
+
+logger = logging.getLogger()
 
 
 def get_cmd():
@@ -33,3 +36,25 @@ def post_slack(token, channel="#通知", username="通知", message=""):
         },
     )
     return response.status_code
+
+
+def setup_logger(rank, log_path):
+    # root loggerには最初からstremHandlerがある
+    if rank in [-1, 0]:
+        # MASTER RANK in DDP Mode or Single GPU Mode
+        logging.basicConfig(format="[%(levelname)s] %(message)s", level=logging.INFO)
+        logger.setLevel(logging.INFO)
+        log_format = logging.Formatter("[%(asctime)s][%(levelname)s] %(message)s")
+        file_handler = logging.FileHandler(log_path, "w")
+        file_handler.setFormatter(log_format)
+        file_handler.setLevel(logging.INFO)
+        logger.addHandler(file_handler)
+        default_handler = logger.handlers[0]
+        default_handler.setFormatter(log_format)
+        default_handler.setLevel(logging.INFO)
+    else:
+        for h in logger.handlers[1:]:
+            logger.removeHandler(h)
+        # replica RANK in DDP Mode
+        logging.basicConfig(format="[%(levelname)s] %(message)s", level=logging.ERROR)
+        logger.setLevel(logging.ERROR)
