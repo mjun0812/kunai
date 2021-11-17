@@ -20,9 +20,11 @@ def save_model(model, file_path, multi_gpu):
     logger.info("Saving model at %s", file_path)
 
 
-def save_model_info(output_dir, model, input_size, prefix=""):
+def save_model_info(output_dir, model, input_size, prefix="", multi_gpu=False):
     if prefix:
         prefix = "_" + prefix
+    if multi_gpu:
+        model = model.module
     # Model Summary
     with open(os.path.join(output_dir, f"model_summary{prefix}.log"), "a") as f:
         print(model, file=f)
