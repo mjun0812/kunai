@@ -5,7 +5,7 @@ import torch
 from torch.backends import cudnn
 
 
-def set_device(global_gpu_index, is_cpu=False):
+def set_device(global_gpu_index, is_cpu=False, pci_device_order=True):
     """set CUDA_VISIBLE_DEVISES on script
 
     Args:
@@ -18,7 +18,8 @@ def set_device(global_gpu_index, is_cpu=False):
     """
 
     if not is_cpu:
-        os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+        if pci_device_order:
+            os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
         os.environ["CUDA_VISIBLE_DEVICES"] = str(global_gpu_index)
 
         # print using GPU Info
