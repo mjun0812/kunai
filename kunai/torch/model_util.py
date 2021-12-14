@@ -8,22 +8,22 @@ import torch
 logger = logging.getLogger()
 
 
-def save_model(model, file_path, multi_gpu):
+def save_model(model, file_path):
     """save Pytorch Model
 
     Args:
         file_path (String): save file path
     """
-    if multi_gpu:
+    if check_model_parallel(model):
         model = model.module
     torch.save(model.state_dict(), file_path)
     logger.info("Saving model at %s", file_path)
 
 
-def save_model_info(output_dir, model, input_size, prefix="", multi_gpu=False):
+def save_model_info(output_dir, model, input_size, prefix=""):
     if prefix:
         prefix = "_" + prefix
-    if multi_gpu:
+    if check_model_parallel(model):
         model = model.module
     # Model Summary
     with open(os.path.join(output_dir, f"model_summary{prefix}.log"), "a") as f:
@@ -39,3 +39,6 @@ def save_model_info(output_dir, model, input_size, prefix="", multi_gpu=False):
             ),
             file=f,
         )
+
+def check_model_parallel(model):
+    return isinstance(model, torch.nn.DataParallel) or isinstance(model, torch.nn.parallel.DistributeDataParallel)
