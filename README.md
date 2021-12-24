@@ -5,10 +5,10 @@ My Python Package
 ## Install
 
 ```bash
-pip install git+ssh://mjun@lab/home/mjun/share/Git/kunai.git
+pip install git+ssh://git@github.com/mjun0812/kunai.git
 
 # upgrade
-pip install git+ssh://mjun@lab/home/mjun/share/Git/kunai.git -U
+pip install git+ssh://git@github.com/mjun0812/kunai.git -U
 ```
 
 ## API
