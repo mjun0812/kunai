@@ -21,6 +21,14 @@ def save_model(model, file_path):
 
 
 def save_model_info(output_dir, model, input_size, prefix=""):
+    """Output PyTorch Model Summary to log.
+
+    Args:
+        output_dir (string): output log dir
+        model (torch.nn.Module): PyTorch Model Class
+        input_size (List): input tensor size
+        prefix (str, optional): log file prefix output_dir/model_summary_{prefix}.log. Defaults to "".
+    """
     if prefix:
         prefix = "_" + prefix
     if check_model_parallel(model):
@@ -39,6 +47,7 @@ def save_model_info(output_dir, model, input_size, prefix=""):
             ),
             file=f,
         )
+
 
 def check_model_parallel(model):
     return isinstance(model, torch.nn.DataParallel) or isinstance(model, torch.nn.parallel.DistributeDataParallel)

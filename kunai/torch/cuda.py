@@ -47,7 +47,6 @@ def cuda_info(global_cuda_index=0):
         global_cuda_index (int): if using CUDA_VISIBLE_DEVICE, index is changed
                                  from global.
     """
-    os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
     for i in range(torch.cuda.device_count()):
         info = torch.cuda.get_device_properties(i)
         print(f"CUDA:{i + global_cuda_index} {info.name}, {info.total_memory / 1024 ** 2}MB")
@@ -59,7 +58,7 @@ def time_synchronized():
        これで補正する
 
     Returns:
-        [time]: 関数呼び出し時の時刻
+        time: 関数呼び出し時の時刻
     """
     # pytorch-accurate time
     if torch.cuda.is_available():
