@@ -55,3 +55,7 @@ from kunai.utils import (
     get_cmd, get_git_hash, post_slack, setup_logger
 )
 ```
+
+## Documentation
+
+[API](./docs/doc.md)
