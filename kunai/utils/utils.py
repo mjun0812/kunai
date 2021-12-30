@@ -8,7 +8,15 @@ logger = logging.getLogger()
 
 
 def get_cmd():
-    """実行コマンドを取得する"""
+    """実行コマンドを取得する
+
+    Returns:
+        string: 実行コマンド
+
+    Examples:
+        >>> get_cmd()
+        python hoge.py --huga
+    """
     cmd = "python " + " ".join(sys.argv)
     return cmd
 

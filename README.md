@@ -9,6 +9,9 @@ pip install git+ssh://git@github.com/mjun0812/kunai.git
 
 # upgrade
 pip install git+ssh://git@github.com/mjun0812/kunai.git -U
+
+# editable(recommend)
+pip install -e .
 ```
 
 ## API
