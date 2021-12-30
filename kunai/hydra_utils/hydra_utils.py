@@ -10,6 +10,15 @@ logger = logging.getLogger()
 
 
 def set_hydra(cfg):
+    """configファイルを標準出力し，Current Dirを実行スクリプトの場所に戻す．
+
+    hydraは使用時にカレントディレクトリを変更するため，
+    hydra.utils.get_original_cwdを使って実行ディレクトリを取得して
+    もとに戻す．
+
+    Args:
+        cfg (OmegaConf.omegaconf): Hydra config obj.
+    """
     # Print config
     print(OmegaConf.to_yaml(cfg))
     # Hydraはcurrent directryを実行場所から変更するのでもとに戻しておく
@@ -17,6 +26,17 @@ def set_hydra(cfg):
 
 
 def get_default_config(config_dir_path, config_name="config.yaml"):
+    """hydraを使わずにディレクトリに分割されたyamlの設定ファイルをOmegaConfに変換する
+
+    ２つ以上の設定ファイルを比較するときに必要
+
+    Args:
+        config_dir_path (str): config群があるディレクトリ
+        config_name (str, optional): configのファイル名. Defaults to "config.yaml".
+
+    Returns:
+        OmegaConf.omegaconf: omegaconf
+    """
     # get default root config
     with open(os.path.join(config_dir_path, config_name), "r") as f:
         cfg = yaml.safe_load(f)
@@ -42,6 +62,31 @@ def get_default_config(config_dir_path, config_name="config.yaml"):
 
 
 def validate_config(cfg):
+    """2つのOmegaConfをマージする．
+
+    main関数でロードしたものと，デフォルトで使っているものをマージする．
+    開発中にデフォルトのconfigに追加があった場合に，既に生成されたconfigに
+    追加した項目をロードしたconfigに追加するために使う
+
+    ```yaml
+    # load config
+    HOGE: 3
+
+    # default config
+    HOGE: 2
+    HUGA: 1
+
+    # merged config
+    HOGE: 3
+    HUGA: 1
+    ```
+
+    Args:
+        cfg (OmegaConf.omegaconf): ロードしたconfigファイル
+
+    Returns:
+        OmegaConf.omegaconf: マージされたconfigファイル
+    """
     default_cfg = get_default_config("./config")
     default_keys = enum_dict_keys(OmegaConf.to_container(default_cfg, resolve=True))
     cfg_keys = enum_dict_keys(OmegaConf.to_container(cfg, resolve=True))
@@ -55,6 +100,15 @@ def validate_config(cfg):
 
 
 def enum_dict_keys(base, base_name=""):
+    """dictのkeyを再帰的に列挙したリストを取得する
+
+    Args:
+        base (dict): 列挙するリスト
+        base_name (str, optional): 親の階層のkey．再起実行用. Defaults to "".
+
+    Returns:
+        list: dictのkeyのリスト
+    """
     key_list = []
     for key in base.keys():
         if base_name:

@@ -9,10 +9,13 @@ logger = logging.getLogger()
 
 
 def save_model(model, file_path):
-    """save Pytorch Model
+    """Save PyTorch Model
+    PyTorchのモデルを保存する
+    Parallelにも対応
 
     Args:
-        file_path (String): save file path
+        model (torch.nn.Module): モデルオブジェクト
+        file_path (str): 保存先
     """
     if check_model_parallel(model):
         model = model.module
@@ -50,4 +53,12 @@ def save_model_info(output_dir, model, input_size, prefix=""):
 
 
 def check_model_parallel(model):
+    """check model is parallel or single
+
+    Args:
+        model (torch.nn.Module): Model file
+
+    Returns:
+        bool: parallel = True, single = False
+    """
     return isinstance(model, torch.nn.DataParallel) or isinstance(model, torch.nn.parallel.DistributeDataParallel)

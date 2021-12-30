@@ -14,7 +14,7 @@ pip install git+ssh://git@github.com/mjun0812/kunai.git -U
 pip install -e .
 ```
 
-## API
+## API Overview
 
 ### Registory
 
@@ -56,6 +56,6 @@ from kunai.utils import (
 )
 ```
 
-## Documentation
+## API Documentation
 
-[API](./docs/doc.md)
+[Here](./docs/doc.md)

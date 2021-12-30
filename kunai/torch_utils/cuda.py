@@ -6,15 +6,18 @@ from torch.backends import cudnn
 
 
 def set_device(global_gpu_index, is_cpu=False, pci_device_order=True):
-    """set CUDA_VISIBLE_DEVISES on script
+    """Set use GPU or CPU Device
+
+    set using GPU or CPU Device(instead of CUDA_VISIBLE_DEVICES).
+    set also CUDNN.
 
     Args:
-        global_gpu_index (int): GPU Index
-        is_cpu (bool, optional): Toggle it, Using CPU.
-                                 Defaults to False.
+        global_gpu_index (int): using gpu number in all gpu.
+        is_cpu (bool, optional): use cpu or not. Defaults to False.
+        pci_device_order (bool, optional): . Defaults to True.
 
     Returns:
-        Torch.device: Pytorch device
+        torch.device: use device object.
     """
 
     if not is_cpu:
@@ -41,11 +44,10 @@ def set_device(global_gpu_index, is_cpu=False, pci_device_order=True):
 
 
 def cuda_info(global_cuda_index=0):
-    """Show available GPU Info based global ID
+    """show using GPU Info
 
     Args:
-        global_cuda_index (int): if using CUDA_VISIBLE_DEVICE, index is changed
-                                 from global.
+        global_cuda_index (int, optional): using GPU number in all GPU number. Defaults to 0.
     """
     for i in range(torch.cuda.device_count()):
         info = torch.cuda.get_device_properties(i)
@@ -53,9 +55,8 @@ def cuda_info(global_cuda_index=0):
 
 
 def time_synchronized():
-    """return time synhronized CUDA device
-       CUDAデバイスを使っていると時刻がずれることがあるため、
-       これで補正する
+    """return time at synhronized CUDA and CPU.
+       CUDAとCPUの計算が非同期なため，同期してから時間計算する．
 
     Returns:
         time: 関数呼び出し時の時刻
