@@ -1,6 +1,6 @@
 # API
 
-Update: 2021-12-30 19:33
+Update: 2021-12-31 00:42
 
 ## <kbd>module</kbd> Registry
 
@@ -142,8 +142,8 @@ get_cmd()
 
 #### Examples:
 
-> get_cmd()
-python hoge.py --huga
+get_cmd()
+    -> python hoge.py --huga
 
 ### <kbd>function</kbd> `utils.get_git_hash`
 
@@ -183,30 +183,21 @@ setup_logger(rank, log_path)
 ```
 
 loggerのセットアップをする
+```python
+
+# write first on python script file
+import logging
+logger = logging.getLogger()
+
+# logging
+logger.info("test log")
+
+# output
+[2021-12-22 19:48:45,027][INFO] test log
+
+```
 
 #### Args:
 
 - *`rank`*: int
 - *`log_path`*: str
-
-#### Example:
-
-```python
-
-    # write first on python script file
-
-    import logging
-
-    logger = logging.getLogger()
-
-
-    # logging
-
-    logger.info("test log")
-
-
-    # output
-
-    [2021-12-22 19:48:45,027][INFO] test log
-
-    ```
