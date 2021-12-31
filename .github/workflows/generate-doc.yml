@@ -19,7 +19,7 @@ jobs:
       - name: Install Package
         run: |
           pip install git+https://github.com/mjun0812/docstring2markdown.git
-          pip install torch torchinfo requests hydra-core
+          pip install torch torchinfo requests hydra-core numpy
 
       - name: Generate Doc
         run: doc-to-md kunai
