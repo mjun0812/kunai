@@ -1,6 +1,6 @@
 # API
 
-Update: 2021-12-31 14:19
+Update: 2021-12-31 14:22
 
 ## <kbd>module</kbd> Registry
 
@@ -125,6 +125,131 @@ dictのkeyを再帰的に列挙したリストを取得する
 #### Returns:
 
 - *`list`*:  dictのkeyのリスト
+
+## <kbd>module</kbd> torch_utils
+kunai.torch
+
+## <kbd>module</kbd> torch_utils.cuda
+
+### <kbd>function</kbd> `torch_utils.set_device`
+
+```python
+set_device(global_gpu_index, is_cpu=False, pci_device_order=True)
+```
+
+Set use GPU or CPU Device
+
+set using GPU or CPU Device(instead of CUDA_VISIBLE_DEVICES).set also CUDNN.
+
+#### Args:
+
+ - <b>`global_gpu_index`</b> (int):  using gpu number in all gpu.
+ - <b>`is_cpu`</b> (bool, optional):  use cpu or not. Defaults to False.
+ - <b>`pci_device_order`</b> (bool, optional):  . Defaults to True.
+
+#### Returns:
+
+- *`torch.device`*:  use device object.
+
+### <kbd>function</kbd> `torch_utils.cuda_info`
+
+```python
+cuda_info(global_cuda_index=0)
+```
+
+show using GPU Info
+
+#### Args:
+
+ - <b>`global_cuda_index`</b> (int, optional):  using GPU number in all GPU number. Defaults to 0.
+
+### <kbd>function</kbd> `torch_utils.time_synchronized`
+
+```python
+time_synchronized()
+```
+
+return time at synhronized CUDA and CPU. CUDAとCPUの計算が非同期なため，同期してから時間計算する．
+
+#### Returns:
+
+- *`time`*:  関数呼び出し時の時刻
+
+## <kbd>module</kbd> torch_utils.model_util
+
+### <kbd>function</kbd> `torch_utils.save_model`
+
+```python
+save_model(model, file_path)
+```
+
+Save PyTorch ModelPyTorchのモデルを保存するParallelにも対応
+
+#### Args:
+
+ - <b>`model`</b> (torch.nn.Module):  モデルオブジェクト
+ - <b>`file_path`</b> (str):  保存先
+
+### <kbd>function</kbd> `torch_utils.save_model_info`
+
+```python
+save_model_info(output_dir, model, input_size, prefix='')
+```
+
+Output PyTorch Model Summary to log.
+
+#### Args:
+
+ - <b>`output_dir`</b> (string):  output log dir
+ - <b>`model`</b> (torch.nn.Module):  PyTorch Model Class
+ - <b>`input_size`</b> (List):  input tensor size
+ - <b>`prefix`</b> (str, optional):  log file prefix output_dir/model_summary_{prefix}.log. Defaults to "".
+
+### <kbd>function</kbd> `torch_utils.check_model_parallel`
+
+```python
+check_model_parallel(model)
+```
+
+check model is parallel or single
+
+#### Args:
+
+ - <b>`model`</b> (torch.nn.Module):  Model file
+
+#### Returns:
+
+- *`bool`*:  parallel = True, single = False
+
+## <kbd>module</kbd> torch_utils.seed
+
+### <kbd>function</kbd> `torch_utils.worker_init_fn`
+
+```python
+worker_init_fn(worker_id)
+```
+
+Reset numpy random seed in PyTorch Dataloader
+
+#### Args:
+
+ - <b>`worker_id`</b> (int):  random seed value
+
+### <kbd>function</kbd> `torch_utils.fix_seed`
+
+```python
+fix_seed(seed)
+```
+
+fix seed on random, numpy, torch module
+
+#### Args:
+
+ - <b>`seed`</b> (int):  seed parameter
+
+#### Returns:
+
+- *`int`*:  seed parameter
 
 ## <kbd>module</kbd> utils
 
