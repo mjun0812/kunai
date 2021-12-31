@@ -1,0 +1,23 @@
+antlr4-python3-runtime==4.8
+black==21.12b0
+certifi==2021.10.8
+charset-normalizer==2.0.9
+click==8.0.3
+flake8==4.0.1
+hydra-core==1.1.1
+idna==3.3
+-e git+ssh://git@github.com/mjun0812/kunai.git@282ff9111a8e8edf67dcfabf967a7b5fbe976d14#egg=kunai
+mccabe==0.6.1
+mypy-extensions==0.4.3
+omegaconf==2.1.1
+pathspec==0.9.0
+platformdirs==2.4.1
+pycodestyle==2.8.0
+pyflakes==2.4.0
+PyYAML==6.0
+requests==2.26.0
+tomli==1.2.3
+torch==1.10.1
+torchinfo==1.6.1
+typing_extensions==4.0.1
+urllib3==1.26.7
