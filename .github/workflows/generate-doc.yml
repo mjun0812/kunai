@@ -14,12 +14,12 @@ jobs:
       - name: setup Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.7
+          python-version: 3.8
 
       - name: Install Package
         run: |
           pip install git+https://github.com/mjun0812/docstring2markdown.git
-          pip install -r requirements.txt
+          pip install torch torchinfo requests hydra-core
 
       - name: Generate Doc
         run: doc-to-md kunai
