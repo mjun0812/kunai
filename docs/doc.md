@@ -1,6 +1,6 @@
 # API
 
-Update: 2021-12-31 14:22
+Update: 2022-01-01 03:46
 
 ## <kbd>module</kbd> Registry
 
@@ -253,6 +253,59 @@ fix seed on random, numpy, torch module
 
 ## <kbd>module</kbd> utils
 
+## <kbd>module</kbd> utils.graph
+
+### <kbd>function</kbd> `utils.draw_image_graph`
+
+```python
+draw_image_graph(images, captions, filename, row, col, all_title='', dpi=150)
+```
+
+matplotlibで画像を並べたグラフを保存する
+
+#### Args:
+
+ - <b>`images`</b> (list[np.ndarray]):  画像のリスト
+ - <b>`captions`</b> (list[str]):  各画像につけるキャプションのリスト
+ - <b>`filename`</b> (str):  図を保存するPath
+ - <b>`row`</b> (int):  行
+ - <b>`col`</b> (int):  列
+ - <b>`all_title`</b> (str, optional):  図全体のキャプション. Defaults to "".
+ - <b>`dpi`</b> (int, optional):  保存する図のDPI. Defaults to 150.
+
+### <kbd>function</kbd> `utils.fig_to_numpy`
+
+```python
+fig_to_numpy(fig)
+```
+
+Matplotlibのfigureをnumpy arrayに変換
+
+#### Args:
+
+ - <b>`fig`</b> (fig):  MatplotlibのFigure
+
+#### Returns:
+
+- *`numpy.ndarray`*:  画像
+
+### <kbd>function</kbd> `utils.csv_to_list`
+
+```python
+csv_to_list(path, head=False)
+```
+
+csv to 2D List
+
+#### Args:
+
+ - <b>`path`</b> (str):  csv path
+ - <b>`head`</b> (bool, optional):  Skip CSV header. Defaults to False.
+
+#### Returns:
+
+- *`List`*:  2D List
+
 ### <kbd>function</kbd> `utils.get_cmd`
 
 ```python
@@ -326,3 +379,60 @@ logger.info("test log")
 
  - <b>`rank`</b> (int):  ログを記録するプロセスのランク．masterなら-1か0を設定．
  - <b>`log_path`</b> (str):  ログの保存先
+
+### <kbd>function</kbd> `utils.make_output_dirs`
+
+```python
+make_output_dirs(output_base_path: str, prefix='', child_dirs=None) → str
+```
+
+mkdir YYYYMMDD_HHmmSS (+ _prefix)
+
+#### Args:
+
+ - <b>`output_base_path`</b> (str):  make output dir path.
+ - <b>`prefix`</b> (str, optional):  add prefix mkdir. Defaults to "".
+ - <b>`child_dirs`</b> ([type], optional):  mkdir child dir list. Defaults to None.
+
+#### Returns:
+
+- *`str`*:  YYYYMMDD_HHmmSS
+
+#### Examples:
+
+```python
+out = make_output_dirs("./result", prefix="MODEL", child_dirs=["models", "figs"])
+
+./result/21010812_120000
+├── models
+└── figs
+
+```
+
+### <kbd>function</kbd> `utils.atoi`
+
+```python
+atoi(text)
+```
+
+### <kbd>function</kbd> `utils.natural_keys`
+
+```python
+natural_keys(text)
+```
+
+### <kbd>function</kbd> `utils.numerical_sort`
+
+```python
+numerical_sort(list)
+```
+
+Numerical sort
+
+#### Args:
+
+ - <b>`list`</b> (list[str]):  sort elements
+
+#### Returns:
+
+- *`list`*:  sorted list
