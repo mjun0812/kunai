@@ -1,10 +1,32 @@
 import logging
 import subprocess
 import sys
+import os
+import datetime
+import csv
+import re
 
 import requests
 
 logger = logging.getLogger()
+
+
+def csv_to_list(path, head=False):
+    """csv to 2D List
+
+    Args:
+        path (str): csv path
+        head (bool, optional): Skip CSV header. Defaults to False.
+
+    Returns:
+        List: 2D List
+    """
+    with open(path, "r") as f:
+        reader = csv.reader(f)
+        if head:
+            next(reader)
+        data = [row for row in reader]
+    return data
 
 
 def get_cmd():
@@ -94,3 +116,54 @@ def setup_logger(rank, log_path):
         # replica RANK in DDP Mode
         logging.basicConfig(format="[%(levelname)s] %(message)s", level=logging.ERROR)
         logger.setLevel(logging.ERROR)
+
+
+def make_output_dirs(output_base_path: str, prefix="", child_dirs=None) -> str:
+    """mkdir YYYYMMDD_HHmmSS (+ _prefix)
+
+    Args:
+        output_base_path (str): make output dir path.
+        prefix (str, optional): add prefix mkdir. Defaults to "".
+        child_dirs ([type], optional): mkdir child dir list. Defaults to None.
+
+    Returns:
+        str: YYYYMMDD_HHmmSS
+
+    Examples:
+    ```python
+    out = make_output_dirs("./result", prefix="MODEL", child_dirs=["models", "figs"])
+
+    ./result/21010812_120000
+    ├── models
+    └── figs
+    ```
+    """
+    today = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    if prefix:
+        prefix = "_" + prefix
+    output_path = os.path.join(output_base_path, f"{today}{prefix}")
+    os.makedirs(output_path)
+    if child_dirs:
+        for d in child_dirs:
+            os.makedirs(os.path.join(output_path, d))
+    return output_path
+
+
+def atoi(text):
+    return int(text) if text.isdigit() else text
+
+
+def natural_keys(text):
+    return [atoi(c) for c in re.split(r"(\d+)", text)]
+
+
+def numerical_sort(list):
+    """Numerical sort
+
+    Args:
+        list (list[str]): sort elements
+
+    Returns:
+        list: sorted list
+    """
+    return sorted(list, key=natural_keys)
