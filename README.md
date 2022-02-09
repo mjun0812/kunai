@@ -11,12 +11,14 @@ pip install git+ssh://git@github.com/mjun0812/kunai.git
 pip install git+ssh://git@github.com/mjun0812/kunai.git -U
 
 # editable(recommend)
+git clone https://github.com/mjun0812/kunai.git
+cd kunai
 pip install -e .
 ```
 
 ## API Overview
 
-### Registory
+### Registry
 
 ```python
 from kunai import Registry
