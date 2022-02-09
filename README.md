@@ -27,15 +27,9 @@ from kunai import Registry
 required `pip install torch torchinfo`
 
 ```python
-from kunai.torch import (
-    cuda_info,
-    set_device,
-    time_synchronized,
-    save_model,
-    save_model_info,
-    fix_seed,
-    worker_init_fn,
-)
+from .cuda import cuda_info, set_device, time_synchronized
+from .model_util import save_model, save_model_info
+from .seed import fix_seed, worker_init_fn
 ```
 
 ### kunai.hydra_utils
@@ -43,17 +37,15 @@ from kunai.torch import (
 required `pip install hydra-core`
 
 ```python
-from kunai.hydra import (
-    set_hydra, validate_config, get_default_config
-)
+from .hydra_utils import get_default_config, set_hydra, validate_config
+
 ```
 
 ### kunai.utils
 
 ```python
-from kunai.utils import (
-    get_cmd, get_git_hash, post_slack, setup_logger
-)
+from .utils import get_cmd, get_git_hash, post_slack, setup_logger, numerical_sort, make_output_dirs, csv_to_list
+from .graph import draw_image_graph, fig_to_numpy
 ```
 
 ## API Documentation
