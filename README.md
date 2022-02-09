@@ -1,6 +1,6 @@
 # kunai
 
-My Python Package
+My Python Package for Research and Utils.
 
 ## Install
 
@@ -22,7 +22,7 @@ pip install -e .
 from kunai import Registry
 ```
 
-### kunai.torch
+### kunai.torch_utils
 
 required `pip install torch torchinfo`
 
@@ -38,7 +38,7 @@ from kunai.torch import (
 )
 ```
 
-### kunai.hydra
+### kunai.hydra_utils
 
 required `pip install hydra-core`
 
