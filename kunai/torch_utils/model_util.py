@@ -62,4 +62,4 @@ def check_model_parallel(model):
     Returns:
         bool: parallel = True, single = False
     """
-    return isinstance(model, torch.nn.DataParallel) or isinstance(model, DistributeDataParallel)
+    return isinstance(model, torch.nn.DataParallel) or isinstance(model, DistributedDataParallel)
