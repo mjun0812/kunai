@@ -4,6 +4,7 @@ import os
 from torchinfo import summary
 
 import torch
+from torch.nn.parallel import DistributedDataParallel
 
 logger = logging.getLogger()
 
@@ -61,4 +62,4 @@ def check_model_parallel(model):
     Returns:
         bool: parallel = True, single = False
     """
-    return isinstance(model, torch.nn.DataParallel) or isinstance(model, torch.nn.parallel.DistributeDataParallel)
+    return isinstance(model, torch.nn.DataParallel) or isinstance(model, DistributeDataParallel)
