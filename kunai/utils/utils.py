@@ -50,7 +50,10 @@ def get_git_hash():
         string: Gitのハッシュ値
     """
     cmd = "git rev-parse --short HEAD"
-    git_hash = subprocess.check_output(cmd.split()).strip().decode("utf-8")
+    try:
+        git_hash = subprocess.check_output(cmd.split(), stderr=subprocess.STDOUT).strip().decode("utf-8")
+    except Exception:
+        git_hash = "Not found git repository"
     return git_hash
 
 
