@@ -1,6 +1,6 @@
 # API
 
-Update: 2022-03-12 17:53
+Update: 2022-03-12 17:55
 
 ## <kbd>module</kbd> Registry
 
