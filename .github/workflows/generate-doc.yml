@@ -22,7 +22,7 @@ jobs:
           pip install torch torchinfo requests hydra-core numpy matplotlib
 
       - name: Generate Doc
-        run: doc-to-md kunai
+        run: doc-to-md ./kunai/kunai
 
       - name: Git commit and push
         run: |
