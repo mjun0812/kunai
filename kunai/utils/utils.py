@@ -145,10 +145,10 @@ def make_output_dirs(output_base_path: str, prefix="", child_dirs=None) -> str:
     if prefix:
         prefix = "_" + prefix
     output_path = os.path.join(output_base_path, f"{today}{prefix}")
-    os.makedirs(output_path)
+    os.makedirs(output_path, exist_ok=True)
     if child_dirs:
         for d in child_dirs:
-            os.makedirs(os.path.join(output_path, d))
+            os.makedirs(os.path.join(output_path, d), exist_ok=True)
     return output_path
 
 
