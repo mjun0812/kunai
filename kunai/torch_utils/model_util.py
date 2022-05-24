@@ -24,33 +24,31 @@ def save_model(model, file_path):
     logger.info("Saving model at %s", file_path)
 
 
-def save_model_info(output_dir, model, input_size, prefix=""):
+def save_model_info(output_dir, model, input_size=None, input_data=None, prefix=""):
     """Output PyTorch Model Summary to log.
 
     Args:
         output_dir (string): output log dir
         model (torch.nn.Module): PyTorch Model Class
         input_size (List): input tensor size
+        input_data (List[Tensor]): input data
         prefix (str, optional): log file prefix output_dir/model_summary_{prefix}.log. Defaults to "".
     """
     if prefix:
         prefix = "_" + prefix
     if check_model_parallel(model):
         model = model.module
+
+    device = next(model.parameters()).device
+    if input_size is None:
+        model_summary = str(summary(model, input_data=input_data, device=device, verbose=0))
+    elif input_data is None:
+        model_summary = str(summary(model, input_size=input_size, device=device, verbose=0))
+
     # Model Summary
     with open(os.path.join(output_dir, f"model_summary{prefix}.log"), "a") as f:
         print(model, file=f)
-        print(
-            str(
-                summary(
-                    model,
-                    input_size=input_size,
-                    device=next(model.parameters()).device,
-                    verbose=0,
-                )
-            ),
-            file=f,
-        )
+        print(model_summary, file=f)
 
 
 def check_model_parallel(model):
