@@ -44,6 +44,8 @@ def save_model_info(output_dir, model, input_size=None, input_data=None, prefix=
         model_summary = str(summary(model, input_data=input_data, device=device, verbose=0))
     elif input_data is None:
         model_summary = str(summary(model, input_size=input_size, device=device, verbose=0))
+    else:
+        model_summary = str(summary(model, device=device, verbose=0))
 
     # Model Summary
     with open(os.path.join(output_dir, f"model_summary{prefix}.log"), "a") as f:
