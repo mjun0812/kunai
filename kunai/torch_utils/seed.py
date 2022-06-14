@@ -11,6 +11,9 @@ def worker_init_fn(worker_id):
     Args:
         worker_id (int): random seed value
     """
+    # random
+    random.seed(random.getstate()[1][0])
+    # Numpy
     np.random.seed(np.random.get_state()[1][0] + worker_id)
 
 
