@@ -5,7 +5,7 @@ import torch
 from torch.backends import cudnn
 
 
-def set_device(global_gpu_index, is_cpu=False, pci_device_order=True):
+def set_device(global_gpu_index, is_cpu=False, pci_device_order=True, cudnn_deterministic=False):
     """Set use GPU or CPU Device
 
     set using GPU or CPU Device(instead of CUDA_VISIBLE_DEVICES).
@@ -31,7 +31,7 @@ def set_device(global_gpu_index, is_cpu=False, pci_device_order=True):
 
         if cudnn.is_available():
             cudnn.benchmark = True
-            torch.backends.cudnn.deterministic = True  # 乱数固定のため
+            torch.backends.cudnn.deterministic = cudnn_deterministic # 乱数固定のため
             print("Use CUDA, CUDNN")
         else:
             print("Use CUDA")
