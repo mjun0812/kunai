@@ -9,7 +9,7 @@ import hydra
 logger = logging.getLogger()
 
 
-def set_hydra(cfg):
+def set_hydra(cfg, verbose=True):
     """configファイルを標準出力し，Current Dirを実行スクリプトの場所に戻す．
 
     hydraは使用時にカレントディレクトリを変更するため，
@@ -19,8 +19,9 @@ def set_hydra(cfg):
     Args:
         cfg (OmegaConf.omegaconf): Hydra config obj.
     """
-    # Print config
-    print(OmegaConf.to_yaml(cfg))
+    if verbose:
+        # Print config
+        print(OmegaConf.to_yaml(cfg))
     # Hydraはcurrent directryを実行場所から変更するのでもとに戻しておく
     os.chdir(hydra.utils.get_original_cwd())
 

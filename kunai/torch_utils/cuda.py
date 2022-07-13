@@ -5,7 +5,9 @@ import torch
 from torch.backends import cudnn
 
 
-def set_device(global_gpu_index, is_cpu=False, pci_device_order=True, cudnn_deterministic=True):
+def set_device(
+    global_gpu_index, is_cpu=False, pci_device_order=True, cudnn_deterministic=True, verbose=True
+):
     """Set use GPU or CPU Device
 
     set using GPU or CPU Device(instead of CUDA_VISIBLE_DEVICES).
@@ -26,15 +28,15 @@ def set_device(global_gpu_index, is_cpu=False, pci_device_order=True, cudnn_dete
         os.environ["CUDA_VISIBLE_DEVICES"] = str(global_gpu_index)
 
         # print using GPU Info
-        cuda_info(int(str(global_gpu_index).split(",")[0]))
+        if verbose:
+            cuda_info(int(str(global_gpu_index).split(",")[0]))
         print("Using GPU is CUDA:{}".format(global_gpu_index))
 
         if cudnn.is_available():
             cudnn.benchmark = True
             torch.backends.cudnn.deterministic = cudnn_deterministic  # 乱数固定のため
-            print("Use CUDA, CUDNN")
-        else:
-            print("Use CUDA")
+            if verbose:
+                print("Use CUDNN")
         device = torch.device("cuda:0")
     else:
         device = torch.device("cpu")
