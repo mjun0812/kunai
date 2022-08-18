@@ -51,7 +51,9 @@ def get_git_hash():
     """
     cmd = "git rev-parse --short HEAD"
     try:
-        git_hash = subprocess.check_output(cmd.split(), stderr=subprocess.STDOUT).strip().decode("utf-8")
+        git_hash = (
+            subprocess.check_output(cmd.split(), stderr=subprocess.STDOUT).strip().decode("utf-8")
+        )
     except Exception:
         git_hash = "Not found git repository"
     return git_hash
@@ -82,7 +84,7 @@ def post_slack(token, channel="#通知", username="通知", message=""):
     return response.status_code
 
 
-def setup_logger(rank, log_path):
+def setup_logger(log_path=""):
     """loggerのセットアップをする
     ```python
     # write first on python script file
@@ -101,23 +103,23 @@ def setup_logger(rank, log_path):
         log_path (str): ログの保存先
     """
     # root loggerには最初からstremHandlerがある
-    if rank in [-1, 0]:
-        # MASTER RANK in DDP Mode or Single GPU Mode
+    log_format = "[%(asctime)s][%(levelname)s] %(message)s"
+    if log_path:
         logging.basicConfig(format="[%(levelname)s] %(message)s", level=logging.INFO)
         logger.setLevel(logging.INFO)
-        log_format = logging.Formatter("[%(asctime)s][%(levelname)s] %(message)s")
+
+        default_handler = logger.handlers[0]
+        default_handler.setFormatter(logging.Formatter(log_format))
+        default_handler.setLevel(logging.INFO)
+
         file_handler = logging.FileHandler(log_path, "w")
-        file_handler.setFormatter(log_format)
+        file_handler.setFormatter(logging.Formatter(log_format))
         file_handler.setLevel(logging.INFO)
         logger.addHandler(file_handler)
-        default_handler = logger.handlers[0]
-        default_handler.setFormatter(log_format)
-        default_handler.setLevel(logging.INFO)
     else:
         for h in logger.handlers[1:]:
             logger.removeHandler(h)
-        # replica RANK in DDP Mode
-        logging.basicConfig(format="[%(levelname)s] %(message)s", level=logging.ERROR)
+        logging.basicConfig(format=log_format, level=logging.ERROR)
         logger.setLevel(logging.ERROR)
 
 

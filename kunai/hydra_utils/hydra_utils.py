@@ -4,11 +4,25 @@ import os
 import yaml
 from omegaconf import OmegaConf
 
-import hydra
 
 logger = logging.getLogger()
 
 
+def is_available(func):
+    def wrapper(*args, **kwargs):
+        global hydra
+        try:
+            import hydra
+
+            func(*args, **kwargs)
+        except (ImportError, TypeError):
+            print("Please install hydra `pip install hydra-core`")
+            return
+
+    return wrapper
+
+
+@is_available
 def set_hydra(cfg, verbose=True):
     """configファイルを標準出力し，Current Dirを実行スクリプトの場所に戻す．
 
