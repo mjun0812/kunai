@@ -4,10 +4,9 @@ import time
 
 def is_available(func):
     def wrapper(*args, **kwargs):
-        global torch, cudnn
+        global torch
         try:
             import torch
-            from torch.backends import cudnn
 
             func(*args, **kwargs)
         except (ImportError, TypeError):
@@ -78,6 +77,7 @@ def time_synchronized():
     Returns:
         time: 関数呼び出し時の時刻
     """
+    print("aaa")
     # pytorch-accurate time
     if torch.cuda.is_available():
         torch.cuda.synchronize()
