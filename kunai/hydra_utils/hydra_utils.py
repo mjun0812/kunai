@@ -14,7 +14,7 @@ def is_available(func):
         try:
             import hydra
 
-            func(*args, **kwargs)
+            return func(*args, **kwargs)
         except (ImportError, TypeError):
             print("Please install hydra `pip install hydra-core`")
             return

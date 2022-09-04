@@ -13,7 +13,7 @@ def is_available(func):
             from torch.nn.parallel import DistributedDataParallel
             from torchinfo import summary
 
-            func(*args, **kwargs)
+            return func(*args, **kwargs)
         except (ImportError, TypeError):
             print("Please install torch, torchinfo `pip install torch torchinfo`")
             return

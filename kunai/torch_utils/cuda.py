@@ -8,7 +8,7 @@ def is_available(func):
         try:
             import torch
 
-            func(*args, **kwargs)
+            return func(*args, **kwargs)
         except (ImportError, TypeError):
             print("Please install torch `pip install torch`")
             return
@@ -77,7 +77,6 @@ def time_synchronized():
     Returns:
         time: 関数呼び出し時の時刻
     """
-    print("aaa")
     # pytorch-accurate time
     if torch.cuda.is_available():
         torch.cuda.synchronize()
