@@ -4,9 +4,10 @@ import time
 
 def is_available(func):
     def wrapper(*args, **kwargs):
-        global torch
+        global torch, cudnn
         try:
             import torch
+            from torch.backends import cudnn
 
             return func(*args, **kwargs)
         except (ImportError, TypeError):
