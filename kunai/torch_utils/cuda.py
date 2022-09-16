@@ -19,7 +19,7 @@ def is_available(func):
 
 @is_available
 def set_device(
-    global_gpu_index, is_cpu=False, pci_device_order=True, cudnn_deterministic=True, verbose=True
+    global_gpu_index, is_cpu=False, pci_device_order=True, cudnn_deterministic=False, verbose=True
 ):
     """Set use GPU or CPU Device
 
@@ -47,7 +47,7 @@ def set_device(
 
         if cudnn.is_available():
             cudnn.benchmark = True
-            torch.backends.cudnn.deterministic = cudnn_deterministic  # 乱数固定のため
+            cudnn.deterministic = cudnn_deterministic  # 乱数固定のため
             if verbose:
                 print("Use CUDNN")
         device = torch.device("cuda:0")
