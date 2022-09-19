@@ -172,3 +172,24 @@ def numerical_sort(list):
         list: sorted list
     """
     return sorted(list, key=natural_keys)
+
+
+class HidePrints:
+    """標準出力を無効にする
+
+    example:
+        ```python
+        with HidePrints():
+            print("aaaa")
+        ```
+    """
+
+    def __init__(self) -> None:
+        self.stdout = None
+
+    def __enter__(self):
+        self.stdout = sys.stdout
+        sys.stdout = open(os.devnull, "w")
+
+    def __exit__(self, ex_type, ex_value, trace):  # noqa
+        sys.stdout = self.stdout
