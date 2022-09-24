@@ -15,6 +15,8 @@ def worker_init_fn(worker_id):
     random.seed(random.getstate()[1][0])
     # Numpy
     np.random.seed(np.random.get_state()[1][0] + worker_id)
+    torch.manual_seed(np.random.get_state()[1][0] + worker_id + 1)
+    torch.cuda.manual_seed_all(np.random.get_state()[1][0] + worker_id + 2)
 
 
 def fix_seed(seed):
