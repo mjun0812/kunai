@@ -17,6 +17,7 @@ def is_available(func):
     return wrapper
 
 
+@is_available
 def worker_init_fn(worker_id):
     """Reset numpy random seed in PyTorch Dataloader
 
@@ -31,6 +32,7 @@ def worker_init_fn(worker_id):
     torch.cuda.manual_seed_all(np.random.get_state()[1][0] + worker_id + 2)
 
 
+@is_available
 def fix_seed(seed):
     """fix seed on random, numpy, torch module
 
