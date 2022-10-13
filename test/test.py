@@ -1,9 +1,12 @@
 import kunai
-import logging
 
-logger = logging.getLogger()
 
-kunai.utils.setup_logger("./test.log")
+def test_timeit():
+    with kunai.utils.TimeIt("hoge"):
+        print("timeit with statement")
 
-logger.info("aaaa")
-logger.error("bbbb")
+    @kunai.utils.timeit("fuga")
+    def _timeit():
+        print("timeit decorater")
+
+    _timeit()

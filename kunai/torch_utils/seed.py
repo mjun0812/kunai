@@ -2,7 +2,19 @@ import random
 
 import numpy as np
 
-import torch
+
+def is_available(func):
+    def wrapper(*args, **kwargs):
+        global torch, cudnn
+        try:
+            import torch
+
+            return func(*args, **kwargs)
+        except (ImportError, TypeError):
+            print("Please install torch `pip install torch`")
+            return
+
+    return wrapper
 
 
 def worker_init_fn(worker_id):

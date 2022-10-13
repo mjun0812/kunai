@@ -1,7 +1,6 @@
 import logging
 import os
 
-import yaml
 from omegaconf import OmegaConf
 
 
@@ -10,13 +9,14 @@ logger = logging.getLogger()
 
 def is_available(func):
     def wrapper(*args, **kwargs):
-        global hydra
+        global hydra, yaml
         try:
             import hydra
+            import yaml
 
             return func(*args, **kwargs)
         except (ImportError, TypeError):
-            print("Please install hydra `pip install hydra-core`")
+            print("Please install hydra `pip install hydra-core yaml`")
             return
 
     return wrapper

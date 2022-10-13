@@ -5,6 +5,7 @@ import os
 import datetime
 import csv
 import re
+import time
 
 import requests
 
@@ -31,7 +32,6 @@ def csv_to_list(path, head=False):
 
 def get_cmd():
     """実行コマンドを取得する
-
     Returns:
         string: 実行コマンド
 
@@ -193,3 +193,56 @@ class HidePrints:
 
     def __exit__(self, ex_type, ex_value, trace):  # noqa
         sys.stdout = self.stdout
+
+
+def timeit(title=""):
+    """速度計測のデコレータ
+
+    ```python
+    @timeit("hoge")
+    def hoge():
+        return
+
+    hoge()
+
+    >> hoge: 0.0001
+    ```
+
+    Args:
+        title (str, optional): _description_. Defaults to "".
+    """
+
+    def _func(func):
+        def _wrapper(*args, **kwargs):
+            start = time.time()
+            value = func(*args, **kwargs)
+            print_title = title
+            if print_title:
+                print_title += ":"
+            print(f"{title} {time.time()-start:.5f}")
+            return value
+
+        return _wrapper
+
+    return _func
+
+
+class TimeIt:
+    def __init__(self, title="") -> None:
+        """速度計測with
+
+        ```python
+        with TimeIt("hoge"):
+            pass
+        >>> hoge: 0.0005
+        ```
+        """
+        self.title = title
+        if self.title:
+            self.title += ":"
+
+    def __enter__(self):
+        self.start = time.time()
+
+    def __exit__(self, ex_type, ex_value, trace):  # noqa
+        print(f"{self.title} {time.time()-self.start:.5f}")
