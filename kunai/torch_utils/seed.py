@@ -25,11 +25,11 @@ def worker_init_fn(worker_id):
         worker_id (int): random seed value
     """
     # random
-    random.seed(random.getstate()[1][0])
+    # random.seed(random.getstate()[1][0] + worker_id)
     # Numpy
     np.random.seed(np.random.get_state()[1][0] + worker_id)
-    torch.manual_seed(np.random.get_state()[1][0] + worker_id + 1)
-    torch.cuda.manual_seed_all(np.random.get_state()[1][0] + worker_id + 2)
+    # torch.manual_seed(np.random.get_state()[1][0] + worker_id + 1)
+    # torch.cuda.manual_seed_all(np.random.get_state()[1][0] + worker_id)
 
 
 @is_available
@@ -48,5 +48,5 @@ def fix_seed(seed):
     np.random.seed(seed)
     # Pytorch
     torch.manual_seed(seed)
-    torch.cuda.manual_seed_all(seed)
+    torch.cuda.manual_seed(seed)
     return seed
