@@ -6,4 +6,4 @@ from kunai import utils
 from kunai import hydra_utils
 
 
-__version__ = "1.22.2"
+__version__ = "1.22.3"

@@ -19,7 +19,12 @@ def is_available(func):
 
 @is_available
 def set_device(
-    global_gpu_index, is_cpu=False, pci_device_order=True, cudnn_deterministic=False, verbose=True
+    global_gpu_index,
+    rank=-1,
+    is_cpu=False,
+    pci_device_order=True,
+    cudnn_deterministic=False,
+    verbose=True,
 ):
     """Set use GPU or CPU Device
 
@@ -42,18 +47,22 @@ def set_device(
 
         # print using GPU Info
         if verbose:
-            cuda_info(int(str(global_gpu_index).split(",")[0]))
-        print("Using GPU is CUDA:{}".format(global_gpu_index))
+            cuda_info(int(os.environ["CUDA_VISIBLE_DEVICES"].split(",")[0]))
+            print(f"Using GPU is CUDA:{global_gpu_index}")
 
         if cudnn.is_available():
             cudnn.benchmark = True
             cudnn.deterministic = cudnn_deterministic  # 乱数固定のため
             if verbose:
                 print("Use CUDNN")
-        device = torch.device("cuda:0")
+        if rank == -1:
+            rank = 0
+        device = torch.device(rank)
+        torch.cuda.set_device(rank)
     else:
         device = torch.device("cpu")
-        print("Use CPU")
+        if verbose:
+            print("Use CPU")
 
     return device
 
