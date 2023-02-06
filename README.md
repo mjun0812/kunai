@@ -20,3 +20,7 @@ git clone https://github.com/mjun0812/kunai.git
 cd kunai
 poetry install
 ```
+
+## API Doc
+
+<https://note.mjunya.com/kunai/>
