@@ -25,7 +25,7 @@ def set_device(
     pci_device_order=True,
     cudnn_deterministic=False,
     verbose=True,
-) -> torch.device:
+):
     """Set use GPU or CPU Device
 
     set using GPU or CPU Device(instead of CUDA_VISIBLE_DEVICES).
