@@ -99,7 +99,6 @@ def setup_logger(log_path=""):
     ```
 
     Args:
-        rank (int): ログを記録するプロセスのランク．masterなら-1か0を設定．
         log_path (str): ログの保存先
     """
     # root loggerには最初からstremHandlerがある

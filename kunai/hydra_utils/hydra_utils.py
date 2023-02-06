@@ -40,7 +40,7 @@ def set_hydra(cfg, verbose=True):
     os.chdir(hydra.utils.get_original_cwd())
 
 
-def get_default_config(config_dir_path, config_name="config.yaml"):
+def get_default_config(config_dir_path, config_name="config.yaml") -> OmegaConf:
     """hydraを使わずにディレクトリに分割されたyamlの設定ファイルをOmegaConfに変換する
 
     ２つ以上の設定ファイルを比較するときに必要
@@ -76,7 +76,7 @@ def get_default_config(config_dir_path, config_name="config.yaml"):
     return cfg
 
 
-def validate_config(cfg):
+def validate_config(cfg) -> OmegaConf:
     """2つのOmegaConfをマージする．
 
     main関数でロードしたものと，デフォルトで使っているものをマージする．
@@ -114,7 +114,7 @@ def validate_config(cfg):
     return merge
 
 
-def enum_dict_keys(base, base_name=""):
+def enum_dict_keys(base, base_name="") -> list:
     """dictのkeyを再帰的に列挙したリストを取得する
 
     Args:

@@ -71,7 +71,7 @@ def save_model_info(output_dir, model, input_size=None, input_data=None, prefix=
 
 
 @is_available
-def check_model_parallel(model):
+def check_model_parallel(model) -> bool:
     """check model is parallel or single
 
     Args:

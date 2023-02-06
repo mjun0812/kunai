@@ -1,4 +1,4 @@
-name: Generate API Document Markdown from Python Package
+name: Generate API Document
 
 on:
   push:
@@ -10,28 +10,22 @@ jobs:
   docstring-to-markdown:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+
       - name: setup Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
-          python-version: 3.8
+          python-version: 3.10
+
+      # https://squidfunk.github.io/mkdocs-material/publishing-your-site/#with-github-actions
+      - uses: actions/cache@v2
+        with:
+          key: ${{ github.ref }}
+          path: .cache
 
       - name: Install Package
         run: |
-          pip install git+https://github.com/mjun0812/docstring2markdown.git
-          pip install torch torchinfo requests hydra-core numpy matplotlib
+          pip install poetry
+          poetry install --no-interaction
 
-      - name: Generate Doc
-        run: doc-to-md ./kunai/kunai
-
-      - name: Git commit and push
-        run: |
-          git add -N .
-          if ! git diff --exit-code --quiet
-          then
-            git config user.name github-actions
-            git config user.email github-actions@github.com
-            git add .
-            git commit -m "Update doc.md"
-            git push
-          fi
+      - run: mkdocs gh-deploy --force

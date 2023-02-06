@@ -1,0 +1,11 @@
+site_name: "kunai"
+
+theme:
+  name: "material"
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [.]

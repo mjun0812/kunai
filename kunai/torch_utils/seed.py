@@ -33,7 +33,7 @@ def worker_init_fn(worker_id):
 
 
 @is_available
-def fix_seed(seed):
+def fix_seed(seed) -> int:
     """fix seed on random, numpy, torch module
 
     Args:

@@ -25,7 +25,7 @@ def set_device(
     pci_device_order=True,
     cudnn_deterministic=False,
     verbose=True,
-):
+) -> torch.device:
     """Set use GPU or CPU Device
 
     set using GPU or CPU Device(instead of CUDA_VISIBLE_DEVICES).
@@ -33,6 +33,7 @@ def set_device(
 
     Args:
         global_gpu_index (int): using gpu number in all gpu.
+        rank (int): process rank
         is_cpu (bool, optional): use cpu or not. Defaults to False.
         pci_device_order (bool, optional): . Defaults to True.
 
@@ -80,7 +81,7 @@ def cuda_info(global_cuda_index=0):
 
 
 @is_available
-def time_synchronized():
+def time_synchronized() -> time:
     """return time at synhronized CUDA and CPU.
        CUDAとCPUの計算が非同期なため，同期してから時間計算する．
 
