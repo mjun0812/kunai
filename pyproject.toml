@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "kunai"
-version = "1.22.5"
+version = "1.22.6"
 description = "My package about Python"
 authors = ["Junya Morioka <mjun@mjunya.com>"]
 license = "MIT"
@@ -8,7 +8,7 @@ repository = "https://github.com/mjun0812/kunai"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.9"
 requests = "^2.28.2"
 opencv-python = "^4.7.0.68"
 matplotlib = "^3.6.3"
