@@ -256,5 +256,7 @@ class JsonEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, np.ndarray):
             return obj.tolist()
+        elif isinstance(obj, (np.floating, np.complexfloating)):
+            return float(obj)
         else:
             return super(JsonEncoder, self).default(obj)
