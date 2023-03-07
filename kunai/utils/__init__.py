@@ -10,6 +10,7 @@ from .utils import (
     HidePrints,
     TimeIt,
     timeit,
+    JsonEncoder,
 )
 from .graph import draw_image_graph, fig_to_numpy
 from .image_utils import image_viewer
