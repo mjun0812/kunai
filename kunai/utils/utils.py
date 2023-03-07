@@ -6,7 +6,8 @@ import datetime
 import csv
 import re
 import time
-
+import json
+import numpy as np
 import requests
 
 logger = logging.getLogger()
@@ -245,3 +246,15 @@ class TimeIt:
 
     def __exit__(self, ex_type, ex_value, trace):  # noqa
         print(f"{self.title} {time.time()-self.start:.5f}")
+
+
+class JsonEncoder(json.JSONEncoder):
+    """Json Classのエンコーダ
+    numpy.arrayをjsonにencodeできる
+    """
+
+    def default(self, obj):
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        else:
+            return super(JsonEncoder, self).default(obj)
