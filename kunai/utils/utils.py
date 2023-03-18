@@ -112,7 +112,7 @@ def setup_logger(log_path=""):
         default_handler.setFormatter(logging.Formatter(log_format))
         default_handler.setLevel(logging.INFO)
 
-        file_handler = logging.FileHandler(log_path, "w")
+        file_handler = logging.FileHandler(log_path, "a")
         file_handler.setFormatter(logging.Formatter(log_format))
         file_handler.setLevel(logging.INFO)
         logger.addHandler(file_handler)
