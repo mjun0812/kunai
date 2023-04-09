@@ -29,4 +29,5 @@ __all__ = [
     draw_image_graph,
     fig_to_numpy,
     image_viewer,
+    JsonEncoder,
 ]
