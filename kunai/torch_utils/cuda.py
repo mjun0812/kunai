@@ -22,8 +22,9 @@ def set_device(
     global_gpu_index,
     rank=-1,
     is_cpu=False,
-    pci_device_order=True,
+    use_cudnn=True,
     cudnn_deterministic=False,
+    pci_device_order=True,
     verbose=True,
 ):
     """Set use GPU or CPU Device
@@ -51,7 +52,7 @@ def set_device(
             cuda_info(int(os.environ["CUDA_VISIBLE_DEVICES"].split(",")[0]))
             print(f"Using GPU is CUDA:{global_gpu_index}")
 
-        if cudnn.is_available():
+        if use_cudnn and cudnn.is_available():
             cudnn.benchmark = True
             cudnn.deterministic = cudnn_deterministic  # 乱数固定のため
             if verbose:

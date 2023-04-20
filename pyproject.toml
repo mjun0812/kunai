@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "kunai"
-version = "1.22.10"
+version = "1.22.11"
 description = "My package about Python"
 authors = ["Junya Morioka <mjun@mjunya.com>"]
 license = "MIT"
