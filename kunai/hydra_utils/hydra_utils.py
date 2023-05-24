@@ -23,7 +23,7 @@ def is_available(func):
 
 
 @is_available
-def set_hydra(cfg, verbose=True):
+def set_hydra(cfg, verbose=True, writable=True):
     """configファイルを標準出力し，Current Dirを実行スクリプトの場所に戻す．
 
     hydraは使用時にカレントディレクトリを変更するため，
@@ -32,10 +32,14 @@ def set_hydra(cfg, verbose=True):
 
     Args:
         cfg (OmegaConf.omegaconf): Hydra config obj.
+        verbose (bool): コンフィグを標準出力する
+        writable (bool): 新しい値を追加可能にする
     """
     if verbose:
         # Print config
         print(OmegaConf.to_yaml(cfg))
+    if writable:
+        OmegaConf.set_struct(cfg, False)
     # Hydraはcurrent directryを実行場所から変更するのでもとに戻しておく
     os.chdir(hydra.utils.get_original_cwd())
 
