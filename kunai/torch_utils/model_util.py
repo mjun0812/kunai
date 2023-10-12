@@ -1,6 +1,6 @@
 import logging
 import os
-
+from pprint import pprint
 
 logger = logging.getLogger()
 
@@ -81,3 +81,42 @@ def check_model_parallel(model) -> bool:
         bool: parallel = True, single = False
     """
     return isinstance(model, torch.nn.DataParallel) or isinstance(model, DistributedDataParallel)
+
+@is_available
+def calc_params(params_dict: dict) -> int:
+    """Calculate number of parameters
+
+    Args:
+        params_dict (dict): PyTorch model state_dict
+
+    Returns:
+        int: num params
+    """
+    num_params = 0
+    for v in params_dict.values():
+        n = 1
+        for p in v.shape:
+            n *= p
+        num_params += n
+    return num_params
+
+@is_available
+def prety_print_model_param(state_dict: dict) -> None:
+    """Print model parameters
+
+    Args:
+        state_dict (dict): PyTorch model state_dict
+    """
+    parsed_dict = {}
+    for key, param in state_dict.items():
+        keys = key.split(".")
+
+        tmp_dict = parsed_dict
+        for k in keys[:-1]:
+            tmp_dict[k] = tmp_dict.get(k, {})
+            tmp_dict = tmp_dict[k]
+        num_params = 0
+        for p in param.shape:
+            num_params *= p
+        tmp_dict[keys[-1]] = f"{list(param.shape)} {num_params}"
+    pprint(parsed_dict)
