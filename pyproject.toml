@@ -8,7 +8,7 @@ repository = "https://github.com/mjun0812/kunai"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 requests = ">=2.28.2"
 opencv-python = ">=4.7.0.68"
 matplotlib = ">=3.6.3"
@@ -17,11 +17,12 @@ omegaconf = ">=2.3.0"
 numpy = ">=1.20.0"
 
 [tool.poetry.group.dev.dependencies]
-black = "^23.1.0"
+black = "^24.3.0"
 
 [tool.poetry.group.doc.dependencies]
-mkdocstrings = { extras = ["python"], version = "^0.20.0" }
+mkdocstrings = { extras = ["python"], version = ">=0.20.0" }
 mkdocs-material = "^9.0.11"
+pymdown-extensions = ">=11.0.1,<12"
 
 [build-system]
 requires = ["poetry-core"]
