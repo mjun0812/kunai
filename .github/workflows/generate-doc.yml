@@ -10,15 +10,15 @@ jobs:
   docstring-to-markdown:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
 
       - name: setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v7
         with:
           python-version: "3.10"
 
       # https://squidfunk.github.io/mkdocs-material/publishing-your-site/#with-github-actions
-      - uses: actions/cache@v2
+      - uses: actions/cache@v6
         with:
           key: ${{ github.ref }}
           path: .cache
